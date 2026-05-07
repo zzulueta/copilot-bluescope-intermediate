@@ -34,23 +34,6 @@ Complete 2-hour lab guide with:
 
 ## 🚀 Quick Start
 
-### For Instructors
-
-1. Clone this repository
-2. Review `LAB_INSTRUCTIONS.md`
-3. Test the setup:
-   ```bash
-   cd steel-inventory-api
-   python -m venv venv
-   venv\Scripts\activate  # Windows
-   # source venv/bin/activate  # macOS/Linux
-   pip install -r requirements.txt
-   uvicorn app.main:app --reload
-   ```
-4. Visit http://localhost:8000/docs to verify
-
-### For Participants
-
 Follow the complete instructions in `LAB_INSTRUCTIONS.md`
 
 ## 📋 Prerequisites
