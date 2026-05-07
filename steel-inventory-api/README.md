@@ -4,16 +4,16 @@ A FastAPI-based inventory management system for steel products with a modern web
 
 ## Setup
 
-```bash
+```powershell
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+. .\venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
 ## Run
 
-```bash
-uvicorn app.main:app --reload
+```powershell
+python -m uvicorn app.main:app --reload
 ```
 
 ## Access the Application
