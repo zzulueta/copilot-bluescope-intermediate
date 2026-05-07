@@ -37,9 +37,105 @@ class InMemoryDB:
                 location="Warehouse-B",
                 last_updated=datetime.now()
             ),
+            SteelProduct(
+                id=3,
+                product_code="STL-003",
+                grade="316",
+                shape="plate",
+                length_mm=3000,
+                width_mm=1500,
+                thickness_mm=10.0,
+                quantity=50,
+                location="Warehouse-B",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=4,
+                product_code="STL-004",
+                grade="4140",
+                shape="bar",
+                length_mm=6000,
+                width_mm=None,
+                thickness_mm=50.0,
+                quantity=200,
+                location="Warehouse-C",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=5,
+                product_code="STL-005",
+                grade="A36",
+                shape="tube",
+                length_mm=4000,
+                width_mm=None,
+                thickness_mm=5.0,
+                quantity=120,
+                location="Warehouse-C",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=6,
+                product_code="STL-006",
+                grade="304",
+                shape="sheet",
+                length_mm=2400,
+                width_mm=1200,
+                thickness_mm=4.0,
+                quantity=180,
+                location="Warehouse-A",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=7,
+                product_code="STL-007",
+                grade="A36",
+                shape="plate",
+                length_mm=2500,
+                width_mm=1250,
+                thickness_mm=12.0,
+                quantity=45,
+                location="Warehouse-A",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=8,
+                product_code="STL-008",
+                grade="316",
+                shape="coil",
+                length_mm=6000,
+                width_mm=1800,
+                thickness_mm=2.5,
+                quantity=60,
+                location="Warehouse-B",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=9,
+                product_code="STL-009",
+                grade="4140",
+                shape="bar",
+                length_mm=5000,
+                width_mm=None,
+                thickness_mm=40.0,
+                quantity=150,
+                location="Warehouse-C",
+                last_updated=datetime.now()
+            ),
+            SteelProduct(
+                id=10,
+                product_code="STL-010",
+                grade="304",
+                shape="tube",
+                length_mm=3500,
+                width_mm=None,
+                thickness_mm=6.0,
+                quantity=90,
+                location="Warehouse-C",
+                last_updated=datetime.now()
+            ),
         ]
         self.products = sample_products
-        self._next_id = 3
+        self._next_id = 11
     
     def get_all(self) -> List[SteelProduct]:
         return self.products
