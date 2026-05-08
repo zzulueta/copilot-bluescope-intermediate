@@ -1,9 +1,6 @@
-# GitHub Copilot Advanced Features Lab
-## Steel Inventory Management API
-
+# GitHub Copilot Intermediate Lab Instructions
 **Duration:** 2 hours  
-**Level:** Intermediate to Advanced  
-**Organization:** BlueScope
+**Level:** Intermediate
 
 ---
 
@@ -15,11 +12,12 @@
 - Python 3.9+ installed
 - Git configured
 
-### 2. Clone and Setup
+### 2. Clone and Env Setup
+- Clone this repository
 ```bash
-cd bluescope/steel-inventory-api
+cd steel-inventory-api
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -57,40 +55,100 @@ You'll enhance a partially implemented Steel Inventory Management API using GitH
 
 ---
 
-## Part 1: Advanced Prompting Patterns (30 minutes)
+## Part 1: Advanced Prompting Patterns (35 minutes)
 
-### Exercise 1.1: Fix Bugs Using Decomposition (10 min)
+### Exercise 1.1: Discover and Fix Bugs Using Copilot (15 min)
 
-**Current Issues:**
-1. `database.py` - duplicate product codes not prevented
-2. `database.py` - `last_updated` not set on updates
-3. `routers/inventory.py` - negative quantities allowed
-4. `steel_utils.py` - `calculate_area_m2()` crashes on None width
+**Task:** Use Copilot to find bugs, then fix them with decomposition prompting
 
-**Task:** Use Copilot with decomposition prompting
+#### Step 1: Bug Discovery (5 min)
 
-1. Open Copilot Chat and use this pattern:
-```
-I need to fix the duplicate product code bug in database.py. Let's break this down:
-1. First, show me where product codes are validated
-2. Then, suggest validation logic to check for duplicates
-3. Finally, show where to add this validation in the create method
-```
+Use Copilot's review capabilities to discover issues in the codebase:
 
-2. For each bug, use decomposition:
-   - Identify the problem location
+1. **Workspace-wide review:**
+   Open Copilot Chat and drag the steel-inventory-api folder into the chat as context, then type:
+
+   ```
+   Review the application for any issues
+   ```
+   Review the suggestions and note any critical issues found. You should discover at least 3-5 issues.
+   
+   > Note: We added the steel-inventory-api to the context in order for Copilot to not read the LAB_INSTRUCTIONS.md file and flag it as a bug. This way, we can focus on the actual code files.
+
+2. **Targeted file analysis:**
+   For each key file, ask Copilot to analyze for common issues:
+   ```
+   Review database.py for potential bugs including:
+   - Data validation issues
+   - Missing error handling
+   - State management problems
+   ```
+   
+   ```
+   Review routers/inventory.py for:
+   - Input validation issues
+   - Missing boundary checks
+   - Error handling gaps
+   ```
+   
+   ```
+   Review steel_utils.py for:
+   - Null/None handling issues
+   - Type safety problems
+   - Edge cases not handled
+   ```
+
+3. **Document your findings:**
+   As Copilot identifies issues, note them down. You should discover bugs like:
+   - Duplicate product codes not prevented
+   - `last_updated` not set on updates
+   - Negative quantities allowed
+   - Crashes on None/null values
+
+#### Step 2: Fix Bugs Using Decomposition (10 min)
+
+Now fix the bugs you discovered using decomposition prompting. For this step, we will focus on 3 critical bugs. 
+- Duplicate product codes not prevented in database.py
+- No Negative Quantity Validation in routers/inventory.py
+- Null Pointer in calculate_area_m2() for steel_utils.py
+
+1. For each bug found, use this sample decomposition pattern in Copilot Chat:
+   ```
+   I need to fix the [bug description] in [file name]. Let's break this down:
+   1. First, show me where [relevant code section]
+   2. Then, suggest [solution approach]
+   3. Finally, show where to add this [implementation]
+   ```
+
+2. Example for duplicate product code bug in database.py:
+   ```
+   I need to fix the duplicate product code bug in database.py. Let's break this down:
+   1. First, show me where product codes are validated
+   2. Then, suggest validation logic to check for duplicates
+   3. Finally, show where to add this validation in the create method
+   ```
+   Open the relevant file, review the suggested validation logic, and implement it with Copilot's help.
+
+3. Fix the other bugs using decomposition:
+   - No Negative Quantity Validation in routers/inventory.py
+   - Null Pointer in calculate_area_m2() for steel_utils.py
+
+   For each bug, use decomposition:
+   - Identify the problem location (already done in Step 1)
    - Understand the root cause
    - Propose a solution
    - Implement with Copilot's help
 
-**Expected Outcome:** All 4 bugs fixed with clear, maintainable code.
+   Use the sample decomposition prompt for each bug.
+
+**Expected Outcome:** 
+- You've practiced using Copilot for code discovery at multiple levels
+- All discovered bugs are fixed with clear, maintainable code
+- You understand finding AND fixing issues with Copilot
+- You've identified architectural improvements
 
 **Commit:** 
-```bash
-git add .
-# Use Copilot to generate commit message: Ctrl+I in commit message box
-# Expected: "fix: prevent duplicate product codes and handle None values in calculations"
-```
+Go to Source Control and use Copilot to generate a semantic commit message for your changes. Then Commit & Push your changes.
 
 ---
 
@@ -98,7 +156,7 @@ git add .
 
 **Task:** Add comprehensive tests BEFORE implementing new features
 
-1. Open `tests/test_inventory.py`
+1. Open `tests/test_inventory.py`. Close any other files to focus on testing.
 2. In Copilot Chat, use test-first prompting:
 ```
 Using TDD, I want to add a feature to search products by grade. 
@@ -120,19 +178,14 @@ pytest tests/test_inventory.py -v
 ```
 Now implement the search_by_grade endpoint in routers/inventory.py to make these tests pass
 ```
+5. Review the implementation, run tests again, and ensure they pass.
 
 **Expected Outcome:** 
 - Tests written first (failing)
 - Feature implemented (tests passing)
-- `GET /inventory/search?grade=A36` endpoint working
 
 **Commit:**
-```bash
-git add tests/
-git commit -m "test: add comprehensive tests for grade search feature"
-git add app/routers/inventory.py
-# Use Copilot for commit message
-```
+Go to Source Control and use Copilot to generate a semantic commit message for your changes. Then Commit & Push your changes.
 
 ---
 
@@ -168,11 +221,12 @@ Now implement weight calculations for:
 - All shape types supported
 - Proper documentation
 
-**Commit with Copilot-generated message**
+**Commit:**
+Go to Source Control and use Copilot to generate a semantic commit message for your changes. Then Commit & Push your changes.
 
 ---
 
-## Part 2: GitHub Workflow Integration (25 minutes)
+## Part 2: GitHub Workflow Integration (15 minutes)
 
 ### Exercise 2.1: Create Feature Branch with PR (10 min)
 
@@ -188,41 +242,28 @@ Add a low stock alert feature:
 2. Create an endpoint GET /inventory/low-stock that returns products below their minimum
 3. Add a field to track whether an alert has been sent
 ```
+Implement the feature with Copilot's help.
 
-3. Stage your changes:
-```bash
-git add .
-```
-
-4. Use Copilot to generate a semantic commit message:
-   - In VS Code, open Source Control view
-   - Click in the commit message box
-   - Press `Ctrl+I` (Inline Copilot)
-   - Type: `generate commit message`
-
-5. Commit and push:
-```bash
-git commit
-# Your Copilot-generated message will be used
-git push origin feature/low-stock-alerts
-```
+**Commit:**
+Go to Source Control and use Copilot to generate a semantic commit message for your changes. Then Commit & Push your changes.
 
 ---
 
 ### Exercise 2.2: Generate PR Summary (5 min)
 
-1. Create a PR on GitHub (or simulate locally)
+1. Go to GitHub and create a Pull Request for your feature branch against main. You should see a Compare & Pull Request button. Click it.
 2. Use Copilot to generate a comprehensive PR description:
 
 In Copilot Chat:
 ```
 Generate a pull request description for the low-stock-alerts feature.
 Include:
-- Summary of changes
-- Technical details
-- Testing done
-- Breaking changes (if any)
-Use professional PR template format
+
+Summary of changes
+Technical details
+Testing done
+Breaking changes (if any)
+Use simple markdown formatting for readability. Do not provide links in the summary.
 ```
 
 3. Copy the generated description to your PR
@@ -242,101 +283,111 @@ Implements low stock alerting system for inventory management...
 ...
 ```
 
----
-
-### Exercise 2.3: Copilot Code Review - All Modes (10 min)
-
-**Task:** Experience different code review modes
-
-#### A. Manual Code Review with Copilot
-1. Open any file (e.g., `routers/inventory.py`)
-2. Select a function
-3. Ask Copilot:
-```
-Review this function for:
-- Performance issues
-- Security vulnerabilities
-- Best practices
-- Error handling
-```
-
-#### B. Automatic Code Review (if available)
-1. In Copilot Chat, type:
-```
-@workspace /review
-```
-2. Review suggestions from Copilot
-
-#### C. Full-Project Context Review
-1. Ask Copilot:
-```
-@workspace Perform a comprehensive code review of the entire API.
-Focus on:
-- Architecture patterns
-- Consistency across modules
-- Error handling strategy
-- Test coverage gaps
-```
-
-#### D. Addressing Review Comments
-1. For any issues found, ask:
-```
-How should I fix [specific issue]? Show me the corrected code.
-```
-
-**Expected Outcome:** List of improvements applied based on code review
-
+> Note: In the advanced course, we will use GitHub MCP Server to automate PR summary generation.
 ---
 
 ## Part 3: Custom Agents and Skills (40 minutes)
 
+**Setup:** Switch back to the main branch before starting this section:
+```bash
+git checkout main
+```
+
+This ensures your custom agents and skills are available across all future branches.
+
+---
+
 ### Exercise 3.1: Create Custom Agent (20 min)
 
-**Task:** Create specialized agents for steel calculations from scratch
+**Task:** Create specialized agents for steel calculations from scratch using either the /create-agent command or manual creation.
 
-1. **Create steel-expert.agent.md** in `.github/copilot/agents/`
+1. Create **steel-expert.agent.md** in `.github/agents/` using /create-agent command:
 
-Ask Copilot to help you structure it:
+Ask Copilot in **Agent** mode to help you structure it:
 ```
-I want to create a custom GitHub Copilot agent for steel manufacturing expertise.
+/create-agent I want to create a custom GitHub Copilot agent for steel manufacturing expertise.
 Create an agent file called steel-expert.agent.md that:
 - Specializes in steel grades, calculations, and specifications
-- Has access to read_file and semantic_search tools
+- Has access to read and web tools
 - Knows about ASTM and EN standards
 - Can perform weight and dimension calculations
-- Uses gpt-4 model
+- Uses Claude Sonnet 4.5 model
 ```
+Verify the generated agent file in the **.github/agents directory**. If the file is generated elsewhere (e.g., project root), move it to: 
+.github/agents/steel-expert.agent.md
+
+It should have proper YAML frontmatter and a detailed description of the agent's capabilities similar to below:
+```
+name: steel-expert
+description: "Steel manufacturing specialist. Use when: calculating steel weight, dimensions, or area; identifying steel grades; interpreting ASTM or EN standards; providing material specifications; performing metallurgical calculations; advising on steel properties"
+tools: [read, web]
+model: "Claude Sonnet 4.5"
+argument-hint: "Ask about steel grades, calculations, or standards"
+```
+
+Review the following key sections in the generated agent file:
+- **Description**: Should clearly state the agent's expertise in steel manufacturing, including knowledge of steel grades, standards, and calculations.
+- **Tools**: Should include `read` and `web` tools for accessing information.
+- **Model**: Should specify `Claude Sonnet 4.5`
+- **Role**: Should outline the agent's role in answering questions related to steel products, calculations, and standards.
 
 2. **Test your steel-expert agent:**
-   - Open Copilot Chat
-   - Type: `@steel-expert what's the weight of a 304 stainless steel sheet 2400x1200x6mm?`
-
-3. **Create inventory-manager.agent.md** with handoffs:
-
-Ask Copilot:
+- In Copilot Chat select the **steel-expert** agent and ask it a question:
 ```
-Create an inventory-manager.agent.md that:
+What's the weight of a 304 stainless steel sheet 2400x1200x6mm?
+```
+
+3. **Create inventory-manager.agent.md** with handoffs using /create-agent command:
+
+Go back to **Agent mode**. Ask Copilot:
+```
+/create-agent Create an inventory-manager.agent.md that:
 - Manages inventory operations
-- Delegates calculations to @steel-expert using handoffs
-- Has access to read_file, semantic_search, and grep_search
+- Delegates calculations to steel-expert agent using handoffs
+- Has access to read and web tools
+- Uses Claude Sonnet 4.5 model
 ```
+Verify the generated agent file in the **.github/agents directory**. If the file is generated elsewhere, move it to the correct location.
+
+Here is a sample structure for the inventory-manager agent with handoffs to steel-expert:
+```
+name: inventory-manager
+description: "Inventory operations manager. Use when: managing steel inventory; adding or updating products; checking stock levels; organizing warehouse locations; tracking inventory movements; coordinating product data"
+tools: [read, web, agent]
+model: "Claude Sonnet 4.5"
+argument-hint: "Describe inventory operation or product management task"
+handoffs:
+  - label: Send to steel expert
+    agent: steel-expert
+    prompt: Implement the needed computation
+    send: true
+```
+> Note how the handoff is structured with a label, target agent, prompt, and send flag. The /create-agent command may not generate the handoff section correctly, so you may need to add it manually as shown above.
+
+Review the following key sections in the generated agent file:
+- **Description**: Should clearly state the agent's role in managing inventory operations, including delegating calculations to the steel-expert agent using handoffs. It should specify that this agent is responsible for inventory management tasks and will rely on the steel-expert for any calculations related to steel products.
+- **Tools**: Should include `read` and `web` tools for accessing information.
+- **Model**: Should specify `Claude Sonnet 4.5`
+- **Handoffs**: Should include a handoff to the steel-expert agent for any calculations or technical questions related to steel products.
+- **Role**: Should outline the agent's role in managing inventory operations and coordinating with the steel-expert agent for calculations.
 
 4. **Test handoff between agents:**
+
+Select the **inventory-manager** agent in Copilot Chat and ask it a question that requires a handoff:
 ```
-@inventory-manager I need to add a new product: A36 plate, 3000x1500x10mm, qty 50. 
+Given this: A36 plate, 3000x1500x10mm, qty 50. 
 What's its weight?
 ```
 
-5. **Create quality-inspector.agent.md** for quality control:
-
+5. **Create quality-inspector.agent.md** manually for quality control:
 ```markdown
 ---
 name: quality-inspector
 description: Inspects steel products for defects and compliance
 tools:
-  - read_file
-  - semantic_search
-model: gpt-4
+  - read
+  - web
+model: Claude Sonnet 4.5
 ---
 
 You are a quality control specialist for steel manufacturing.
@@ -350,9 +401,34 @@ Your responsibilities:
 Use precise measurements and cite quality standards (ASTM, ISO).
 ```
 
-5. Test your new agent:
+6. Select the **quality-inspector** agent in Copilot Chat and Test your new agent:
 ```
-@quality-inspector Check if a steel sheet with thickness 5.8mm meets the specification of 6mm ±0.3mm
+Check if a steel sheet with thickness 5.8mm meets the specification of 6mm ±0.3mm
+```
+
+7. Test **user-invocable** setting for steel-expert.
+
+Go to the steel-expert.agent.md file and add `user-invocable: false` to the YAML frontmatter and save the file. Then try to invoke the steel-expert agent directly in Copilot Chat.
+
+Example:
+```
+name: steel-expert
+description: "Steel manufacturing specialist. Use when: calculating steel weight, dimensions, or area; identifying steel grades; interpreting ASTM or EN standards; providing material specifications; performing metallurgical calculations; advising on steel properties"
+tools: [read, web]
+model: "Claude Sonnet 4.5"
+argument-hint: "Ask about steel grades, calculations, or standards"
+user-invocable: false
+```
+
+Verify that the steel-expert agent is no longer available for direct invocation.
+You should not see "steel-expert" in the agent selector dropdown in Copilot Chat.
+
+8. Go to the inventory-manager agent and test that the handoff to steel-expert still works even after setting it to non-user-invocable:
+
+Select the **inventory-manager** agent in Copilot Chat and ask it a question that requires a handoff:
+```
+Given this: A36 plate, 3000x1500x10mm, qty 50. 
+What's its weight?
 ```
 
 **Expected Outcome:**
@@ -364,36 +440,46 @@ Use precise measurements and cite quality standards (ASTM, ISO).
 
 ### Exercise 3.2: Create Agent Skills (20 min)
 
-**Task:** Create portable skills following the agentskills.io standard from scratch
+**Task:** Create portable skills following the agentskills.io standard from scratch using either the /create-skill command or manual creation.
 
-1. **Create steel-calculations.skill** in `skills/steel-calculations.skill/SKILL.md`
+1. Create **cost-estimation.skill** in `skills/cost-estimation/SKILL.md` using /create-skill command:
 
 Ask Copilot:
 ```
-I want to create an agent skill following the agentskills.io standard.
-Create a SKILL.md file for steel-calculations that:
+/create-skill I want to create an agent skill following the agentskills.io standard.
+Create a SKILL.md file for cost-estimation that:
 - Has proper YAML frontmatter (name, description, author, version, agentSkillsVersion: 0.1.0)
-- Performs weight, volume, and area calculations
-- Supports different steel shapes (sheet, coil, bar, tube)
-- Includes usage examples
-- References the functions in app/utils/steel_utils.py
+- Calculates material costs, shipping expenses, and project estimates
+- Includes formulas for material cost, shipping cost, and total cost
+- Supports different pricing scenarios
+- Includes usage examples with cost calculations
+```
+Things to verify:
+- SKILL.md file is created in the correct location: `skills/cost-estimation/SKILL.md`
+- YAML frontmatter is properly formatted and must have the following fields at minimum:
+   - **Name**: Should be `cost-estimation` (must match the directory name)
+   - **Description**: Should clearly explain that this skill calculates material costs, shipping expenses, and project estimates for steel products.
+
+2. **Test the cost-estimation skill:**
+
+Open a new Copilot Chat, select the **Agent** mode and ask it to use the cost-estimation skill:
+```
+Use the cost-estimation skill to estimate total cost:
+Product: A36 plate 3000x1500x10mm
+Quantity: 50 units
+Unit weight: 353.25 kg
+Steel price: $0.85/kg
+Shipping distance: 500 km at $0.12/kg/100km
 ```
 
-2. **Test the steel-calculations skill:**
-```
-@workspace Use the steel-calculations skill to calculate weight of a sheet:
-2400mm x 1200mm x 6mm, A36 steel
-```
+3. Create **inventory-optimization.skill** in `skills/inventory-optimization/SKILL.md` manually.
 
-3. **Create inventory-optimization.skill** in `skills/inventory-optimization.skill/SKILL.md`:
+Create a directory called `inventory-optimization` under `skills/` and add a `SKILL.md` file with the following content:
 
 ```markdown
 ---
 name: inventory-optimization
 description: Optimize inventory levels and reorder points
-author: BlueScope Training Team
-version: 1.0.0
-agentSkillsVersion: 0.1.0
 ---
 
 # Inventory Optimization Skill
@@ -415,62 +501,64 @@ Invoke when:
 - Optimizing warehouse space
 
 ## Examples
-
-```
 Calculate reorder point for:
 - Product: STL-001
 - Lead time: 7 days
 - Daily usage: 5 units
 - Safety stock: 20 units
-```
 
 ## Formula
-
 Reorder Point = (Lead Time × Daily Usage) + Safety Stock
 ```
 
-4. **Create advanced skill** in `skills/advanced/metallurgy-analysis.skill/SKILL.md`
-
-This demonstrates three-level progressive loading:
+4. **Test the new skill:**
 ```
-Create an advanced metallurgy-analysis skill that:
-- Analyzes material properties
-- Provides heat treatment recommendations
-- Lives in the advanced/ subdirectory for on-demand loading
-```
-
-5. **Update skills/README.md** to document all skills:
-```markdown
-# Available Skills
-
-## Core Skills (Always Available)
-- steel-calculations: Weight and dimension calculations
-- inventory-optimization: Inventory level optimization
-
-## Advanced Skills (Load on demand)
-- metallurgy-analysis: Material property analysis
-```
-
-6. **Test the new skill:**
-```
-@workspace Use the inventory-optimization skill to calculate reorder point:
+Use the inventory-optimization skill to calculate reorder point:
 lead time 7 days, daily usage 10 units, safety stock 50 units
+```
+
+5. Add progressive loading to your skills. Modify the computation of the inventory-optimization skill to load seasonality data from a file before performing the calculation. 
+
+Modify the later part of the SKILL.md file:
+
+```
+## Formula
+Reorder Point = (Lead Time × Daily Usage) * Seasonality Factor + Safety Stock
+
+Determine the Seasonality Factor based on the current month using the seasonality rules defined in `seasonality.md`.
+```
+
+Then create a `seasonality.md` file in the same directory with the following content:
+
+```markdown
+If December: Seasonality Factor = 1.2
+Otherwise: Seasonality Factor = 1.0
+```
+6. Test that the inventory-optimization skill correctly applies the seasonality factor based on the current month when calculating the reorder point.
+Create a new Copilot Chat and ask:
+```
+Use the inventory-optimization skill to calculate reorder point:
+lead time 7 days, daily usage 10 units, safety stock 50 units in December
 ```
 
 **Expected Outcome:**
 - Skill properly structured
 - Progressive loading working
-- Portable across VS Code, CLI, Cloud
 
 ---
 
-## Part 4: Copilot Memory and Diagnostics (25 minutes)
+## Part 4: Copilot Memory and Diagnostics (20 minutes)
 
 ### Exercise 4.1: Use Copilot Memory (10 min)
 
 **Task:** Store and retrieve BlueScope-specific standards
 
-1. Open Copilot Chat and teach it BlueScope standards:
+1. Enable Copilot Memory in VS Code settings if not already enabled.
+- Select the settings icon in the bottom left corner of VS Code
+- Search for "Copilot Memory"
+- Enable the feature for both Tools and Chat and save settings
+
+2. Open Copilot Chat and teach it BlueScope standards:
 ```
 Remember: BlueScope uses the following standard locations:
 - Warehouse-A: Hot-rolled products
@@ -488,9 +576,12 @@ Remember: Our quality grades:
 - Premium: aerospace, automotive
 - Standard: construction, general manufacturing
 - Economy: non-critical applications
-```
 
-2. Test memory recall:
+Put these in repository memory.
+```
+Verify that a memory file is created.
+
+3. Test memory recall. Open a new chat and ask:
 ```
 What's the standard minimum stock level for sheets?
 ```
@@ -499,10 +590,16 @@ What's the standard minimum stock level for sheets?
 Where should I store hot-rolled coils?
 ```
 
-3. Use memory in code generation:
+4. Use memory in code generation:
 ```
 Update the SteelProduct model to include quality_grade and set appropriate defaults based on what you remember
 ```
+
+5. View your repository memory:
+- Go to your repository on GitHub
+- Click on Settings → Copilot → Memory
+- Review the stored memories and their details
+- You may also delete memories from this view if needed
 
 **Expected Outcome:**
 - Copilot recalls BlueScope-specific information
@@ -511,27 +608,7 @@ Update the SteelProduct model to include quality_grade and set appropriate defau
 
 ---
 
-### Exercise 4.2: Use /create-agent and /create-skill (5 min)
-
-1. Create an agent using the quick command:
-```
-/create-agent name=shipping-coordinator description="Coordinates shipping and logistics for steel products" tools=read_file,grep_search
-```
-
-2. Create a skill using the quick command:
-```
-/create-skill name=weight-distribution description="Calculates optimal weight distribution for shipping" author="BlueScope Logistics"
-```
-
-3. Review and customize the generated files
-
-**Expected Outcome:**
-- Agent and skill files created with proper structure
-- Ready to customize further
-
----
-
-### Exercise 4.3: Verify with Diagnostics View (10 min)
+### Exercise 4.2: Verify with Diagnostics View (10 min)
 
 **Task:** Ensure all customizations are properly configured
 
@@ -564,68 +641,249 @@ Update the SteelProduct model to include quality_grade and set appropriate defau
 
 ---
 
-## Final Challenge: Integrate Everything (15 minutes)
+## Final Challenge: Build a Plan/Implement/Review Pipeline (15 minutes)
 
-### Comprehensive Task
+**Goal:** Create a complete coil quality grading feature using a structured Plan → Implement → Review workflow with a supporting skill.
 
-Implement a batch processing feature using ALL techniques learned:
+### Context
 
-1. **Test-First:** Write tests for batch operations
-2. **Decomposition:** Break down the implementation into steps
-3. **Custom Agent:** Use @steel-expert for validations
-4. **Skill:** Use steel-calculations skill
-5. **Memory:** Leverage stored minimum stock levels
-6. **PR Workflow:** Create branch, commit with Copilot messages, generate PR summary
-7. **Code Review:** Run full workspace review
+BlueScope needs to implement an automated quality grading system for steel coils. The system must evaluate coils based on surface defects, dimensional accuracy, and coating uniformity, then assign a quality grade (Premium, Standard, or Economy).
 
-**Feature Requirements:**
-- Endpoint: `POST /inventory/batch`
-- Accept array of product updates
-- Validate each product using @steel-expert
-- Calculate total weight using skill
-- Check against stored minimum levels
-- Return summary report
+### Task Overview
 
-**Steps:**
+You will:
+1. **Plan** the feature architecture and requirements
+2. Create a **quality-grading skill** to encapsulate grading logic
+3. **Implement** the quality grading endpoint and model changes
+4. **Review** the implementation using Copilot's review capabilities
+5. Test the complete workflow with your custom agents
 
-1. Create feature branch:
+---
+
+### Step 1: Plan Phase (5 min)
+
+Use decomposition prompting to plan the feature architecture:
+
+1. Open a new Copilot Chat and ask:
+```
+I need to implement a coil quality grading feature for BlueScope's steel inventory API.
+Let's plan this systematically:
+
+1. First, what data fields do we need to track quality metrics for coils?
+   Consider: surface defects, dimensional accuracy, coating uniformity
+
+2. Then, what business logic determines the grade assignment?
+   Use the grades from memory: Premium, Standard, Economy
+
+3. Finally, what API endpoints and model changes are needed?
+   Consider: grading endpoint, model updates, validation
+
+Provide a structured plan with specific requirements for each component.
+```
+
+2. Review Copilot's plan and refine it by asking follow-up questions:
+```
+What validation rules should we apply to ensure data quality?
+```
+
+```
+Should the grading be calculated automatically or manually triggered?
+```
+
+3. Document the plan for future reference and implementation guidance:
+```
+Save the complete plan in a markdown file called `coil-quality-grading-plan.md` in the project root.
+```
+
+**Expected Outcome:**
+- Clear architectural plan documented
+- Requirements broken down into implementable tasks
+- Understanding of data flow and business logic
+
+---
+
+### Step 2: Create Quality Grading Skill (3 min)
+
+Before implementing, create a reusable skill for the grading logic:
+
+1. Ask Copilot:
+```
+/create-skill Create a quality-grading.skill in skills/quality-grading/SKILL.md that:
+- Has proper YAML frontmatter (name: quality-grading, description)
+- Defines grading criteria for steel coils based on:
+  * Surface defect score (0-100, higher is better)
+  * Dimensional accuracy percentage (0-100%)
+  * Coating uniformity score (0-100)
+- Includes grading rules:
+  * Premium: All scores ≥ 95
+  * Standard: All scores ≥ 80 and < 95
+  * Economy: Any score < 80
+- Provides usage examples for calculating grades
+```
+
+2. Verify the generated SKILL.md file in `skills/quality-grading/` directory (move it if needed)
+
+3. Ensure the YAML frontmatter includes at minimum:
+   - name: quality-grading
+   - description: Clear explanation of coil quality grading
+
+4. Test the skill immediately:
+```
+Use the quality-grading skill to determine the grade for a coil with:
+- Surface defect score: 96
+- Dimensional accuracy: 98%
+- Coating uniformity: 97
+```
+
+**Expected Outcome:**
+- Reusable skill created following agentskills.io standard
+- Grading logic clearly documented
+- Skill responds correctly to test scenarios
+
+---
+
+### Step 3: Implement Phase (4 min)
+
+Implement the feature using test-first development:
+
+1. **Write tests first** - In Copilot Chat:
+```
+Using TDD, create comprehensive tests in tests/test_inventory.py for coil quality grading
+
+Use the tests documented in coil-quality-grading-plan.md as a reference.
+
+Use the quality-grading skill's rules for grade assignment logic.
+```
+
+2. **Update the model** - Ask Copilot:
+```
+Add quality metrics fields to the SteelProduct model in models.py:
+- surface_defect_score: float (0-100)
+- dimensional_accuracy: float (0-100)
+- coating_uniformity: float (0-100)
+- quality_grade: str (auto-calculated based on scores)
+
+Include validation to ensure scores are within 0-100 range.
+```
+
+3. **Create the grading endpoint** - Ask Copilot:
+```
+Create a POST endpoint /inventory/{product_id}/grade in routers/inventory.py that:
+- Accepts quality metrics (surface_defect_score, dimensional_accuracy, coating_uniformity)
+- Calculates quality_grade using the quality-grading skill rules
+- Updates the product record
+- Returns the updated product with assigned grade
+
+Use proper error handling for invalid product codes and out-of-range scores.
+```
+
+4. **Run tests in terminal**:
 ```bash
-git checkout -b feature/batch-processing
+pytest tests/test_inventory.py -v
 ```
 
-2. Ask Copilot to write tests first:
+You may also ask Copilot test the changes done:
 ```
-Using TDD, write comprehensive tests for a batch processing endpoint that:
-- Accepts an array of product updates (quantity and location changes)
-- Validates all products exist
-- Returns success/failure for each operation
-- Calculates total weight of all updated products
+Test the coil quality grading implementation using test_inventory.py to ensure all tests pass and the grading logic is correct. Activate the environment first before running the tests.
 ```
 
-3. Implement the feature with Copilot's help, using decomposition:
+**Expected Outcome:**
+- Tests written and passing
+- Model updated with quality fields
+- API endpoint functional
+- Validation working correctly
+
+---
+
+### Step 4: Review Phase (2 min)
+
+Use Copilot's review capabilities to validate your implementation:
+
+1. **Comprehensive code review** - Open Copilot Chat and ask:
 ```
-Let's implement the batch processing endpoint step by step:
-1. First, create the request/response models
-2. Then, implement the batch update logic in database.py
-3. Finally, create the /inventory/batch endpoint in routers/inventory.py
+Review the coil quality grading implementation for:
+- Code quality and best practices
+- Potential bugs or edge cases
+- Security considerations (input validation)
+- Performance implications
+- Documentation completeness
+
+Focus on routers/inventory.py, models.py, and tests/test_inventory.py
 ```
 
-4. Use @steel-expert to add validation:
+2. **Review specific concerns**:
 ```
-@steel-expert Review the batch processing logic and add validation for:
-- Product dimensions
-- Steel grades
-- Quantity limits
+Are there any edge cases in the grading logic that aren't covered by tests?
 ```
 
-5. Generate commit and PR:
-```bash
-git add .
-# Use Copilot for commit message
-git commit
+```
+Is the validation robust enough to prevent invalid data from being stored?
 ```
 
-**Time to Complete:** 15 minutes
+3. **Address any issues** found by Copilot using decomposition:
+```
+For the [issue found], let's fix it step by step:
+1. First, explain why this is a problem
+2. Then, suggest the best solution approach
+3. Finally, show the implementation
+```
+> Note: You may skip this in the interest of time, but in a real scenario, you would want to address any critical issues found during the review.
+
+**Expected Outcome:**
+- Code reviewed and any issues identified
+- Edge cases discovered and addressed
+- Implementation validated against requirements
+
+---
+
+### Step 5: Integration Test with Custom Agents (1 min)
+
+Test the complete workflow using your custom agents:
+
+1. **Test with quality-inspector agent:**
+
+Select the **quality-inspector** agent and ask:
+```
+Inspect this coil quality data and recommend a grade:
+- Surface defect score: 92
+- Dimensional accuracy: 88%
+- Coating uniformity: 91
+
+Does this meet our quality standards?
+```
+
+2. **Test with inventory-manager agent:**
+
+Select the **inventory-manager** agent and ask:
+```
+Add a new coil to inventory:
+- Product code: COIL-QA-001
+- Shape: coil
+- Grade: A36
+- Location: Warehouse-B
+Then grade it with: surface_defect_score=96, dimensional_accuracy=98, coating_uniformity=97
+```
+
+**Expected Outcome:**
+- Agents correctly handle quality grading context
+- Integration works end-to-end
+- Agents leverage the quality-grading skill appropriately
+
+---
+
+### Deliverables
+
+- ✅ Documented implementation plan
+- ✅ quality-grading.skill created and tested
+- ✅ Tests written (TDD approach)
+- ✅ Model updated with quality fields
+- ✅ Grading endpoint implemented
+- ✅ Code reviewed and validated
+- ✅ Integration tested with custom agents
+- ✅ All tests passing
+
+**Commit your final work:**
+Go to Source Control and use Copilot to generate a semantic commit message for your complete quality grading implementation. Commit & Push your changes.
 
 ---
 
@@ -638,152 +896,21 @@ git commit
 - [x] Multi-turn refinement
 - [x] PR summary generation
 - [x] Semantic commit messages
-- [x] Multiple code review  (4 bugs)
-2. ✅ Added grade search feature using TDD
-3. ✅ Completed weight calculations for all shapes
-4. ✅ Implemented low stock alerts feature
-5. ✅ Created steel-expert.agent.md
-6. ✅ Created inventory-manager.agent.md with handoffs
-7. ✅ Created quality-inspector.agent.md
-8. ✅ Created steel-calculations.skill
-9. ✅ Created inventory-optimization.skill
-10. ✅ Created advanced metallurgy-analysis skill
-11. ✅ Configured Copilot Memory with BlueScope standards
-12
+- [x] Copilot code review (bug discovery + comprehensive review modes)
+- [x] Custom agent creation (.agent.md)
+- [x] Agent skills (SKILL.md)
+- [x] Copilot Memory
+- [x] Diagnostics verification
+
 ### Deliverables
-1. ✅ Fixed all starter bugs
+1. ✅ Discovered and fixed all bugs using Copilot review
 2. ✅ Added grade search feature (TDD)
 3. ✅ Completed weight calculations for all shapes
 4. ✅ Implemented low stock alerts
 5. ✅ Tested steel-expert and inventory-manager agents
 6. ✅ Created custom quality-inspector agent
-7. ✅ Created inventory-optimization skill
+7. ✅ Created cost-estimation skill
 8. ✅ Configured Copilot Memory with standards
-9. ✅ Batch processing feature (final challenge)
 
 ---
 
-## Troubleshooting Guide
-
-### Copilot Not Responding
-- Check license activation
-- Restart VS Code
-- Clear Copilot cache: Command Palette → "Reload Window"
-
-### Agents Not Working
-- Verify file path: `.github/copilot/agents/`
-- Check YAML frontmatter syntax (must start with `---`)
-- Review Diagnostics view
-- Ensure proper agent naming (lowercase, hyphens)
-
-### Skills Not Loading
-- Confirm SKILL.md naming (must be exactly `SKILL.md`)
-- Check agentSkills.io version compatibility
-- Verify progressive loading structure
-- Ensure YAML frontmatter is valid
-
-### Memory Not Persisting
-- Memory feature requires Copilot subscription
-- Check if preview feature is enabled in VS Code settings
-- Try explicit "Remember:" prefix
-- Memory may take a few seconds to persist
-
-### Python Environment Issues
-```bash
-# Recreate virtual environment
-rm -rf venv
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### API Not Starting
-```bash
-# Check for port conflicts
-lsof -i :8000  # macOS/Linux
-netstat -ano | findstr :8000  # Windows
-
-# Try different port
-uvicorn app.main:app --reload --port 8001
-```
-
----
-
-## Additional Resources
-
-- [GitHub Copilot Documentation](https://docs.github.com/copilot)
-- [AgentSkills.io Standard](https://agentskills.io)
-- [Copilot Best Practices](https://github.blog/copilot-tips)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [Pytest Documentation](https://docs.pytest.org/)
-
----
-
-## Post-Lab Survey
-
-After completing the lab, please provide feedback on:
-
-1. **Clarity of Instructions** (1-5): _____
-2. **Appropriate Difficulty Level** (1-5): _____
-3. **Time Allocation** (Too short / Just right / Too long)
-4. **Most Valuable Exercise:** _________________
-5. **Areas Needing Improvement:** _________________
-6. **Would you recommend this lab?** (Yes / No / Maybe)
-
-### Open Feedback
-```
-[Your feedback here]
-```
-
----
-
-## Appendix: Quick Reference
-
-### Copilot Chat Commands
-- `@workspace` - Query entire workspace
-- `@steel-expert` - Invoke custom agent
-- `/create-agent` - Quick agent creation
-- `/create-skill` - Quick skill creation
-- `/review` - Code review mode
-
-### Git Commands
-```bash
-git checkout -b feature/name    # Create branch
-git add .                       # Stage changes
-git commit                      # Commit (use Copilot for message)
-git push origin feature/name    # Push branch
-```
-
-### Pytest Commands
-```bash
-pytest                          # Run all tests
-pytest tests/test_inventory.py  # Run specific file
-pytest -v                       # Verbose output
-pytest -k "test_name"          # Run specific test
-```
-
-### API Testing
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Get all products
-curl http://localhost:8000/inventory/
-
-# Create product
-curl -X POST http://localhost:8000/inventory/ \
-  -H "Content-Type: application/json" \
-  -d '{"product_code":"TEST-001","grade":"A36","shape":"sheet","length_mm":2400,"width_mm":1200,"thickness_mm":6.0,"quantity":100,"location":"Warehouse-A"}'
-```
-
----
-
-**Lab Version:** 1.0  
-**Last Updated:** May 2026  
-**Instructor Contact:** [Your contact information]
-
----
-
-## License
-
-This lab material is proprietary to BlueScope and is for training purposes only.
