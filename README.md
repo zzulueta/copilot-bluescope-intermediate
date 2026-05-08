@@ -1,10 +1,10 @@
-# GitHub Copilot Advanced Features Course - BlueScope
+# GitHub Copilot Intermediate Course
 
-A comprehensive 2-hour hands-on lab for learning advanced GitHub Copilot features using a Steel Inventory Management API.
+A comprehensive 2-hour hands-on lab for learning intermediate GitHub Copilot features using a Steel Inventory Management API.
 
 ## 📚 Course Overview
 
-This course teaches advanced GitHub Copilot capabilities through practical exercises:
+This course teaches intermediate GitHub Copilot capabilities through practical exercises:
 
 ### Learning Objectives
 - ✅ Advanced prompting patterns (decomposition, test-first, refactor-first)
@@ -12,7 +12,6 @@ This course teaches advanced GitHub Copilot capabilities through practical exerc
 - ✅ Custom agent authoring (.agent.md)
 - ✅ Agent skills (SKILL.md) following agentskills.io standard
 - ✅ Copilot Memory for persistent context
-- ✅ Diagnostics and verification tools
 
 ## 🎯 What's Included
 
@@ -26,11 +25,11 @@ FastAPI-based Steel Inventory Management system with:
 
 ### `/LAB_INSTRUCTIONS.md`
 Complete 2-hour lab guide with:
-- **Part 1:** Advanced Prompting (30 min)
-- **Part 2:** GitHub Workflow (25 min)
-- **Part 3:** Custom Agents & Skills (40 min)
-- **Part 4:** Memory & Diagnostics (25 min)
-- **Final Challenge:** Integration exercise (15 min)
+- **Part 1:** Advanced Prompting
+- **Part 2:** GitHub Workflow
+- **Part 3:** Custom Agents & Skills
+- **Part 4:** Memory
+- **Final Challenge:** Integration exercise
 
 ## 🚀 Quick Start
 
@@ -61,8 +60,6 @@ bluescope/
 │   │       └── steel_utils.py  # Utility functions
 │   ├── tests/
 │   │   └── test_inventory.py  # Basic tests
-│   ├── .github/copilot/agents/ # Agents created in lab
-│   ├── skills/                 # Skills created in lab
 │   ├── requirements.txt
 │   └── README.md
 ```
@@ -77,7 +74,7 @@ The starter code contains intentional issues for learning:
 5. Weight calculations incomplete for coil/bar/tube shapes
 6. Missing test coverage
 
-Participants will fix these using Copilot's advanced features!
+Participants will fix these using Copilot's features!
 
 ## 🎓 Key Topics Covered
 
@@ -98,10 +95,8 @@ Participants will fix these using Copilot's advanced features!
 - Agent skills (agentskills.io)
 - Progressive skill loading
 
-### Memory & Diagnostics
+### Memory
 - Persistent memory across sessions
-- Diagnostics view verification
-- Chat Customizations editor
 
 ## 📖 Additional Resources
 
@@ -127,15 +122,11 @@ This is a training repository. For improvements or suggestions, please open an i
 ## 🎯 Expected Outcomes
 
 By the end of this lab, participants will:
-- Fix all 4+ bugs using decomposition
-- Implement 3+ features using TDD
-- Create 3+ custom agents
-- Author 3+ agent skills
+- Fix bugs using decomposition
+- Implement features using TDD
+- Create custom agents
+- Author agent skills
 - Configure Copilot Memory
 - Complete a full-stack integration challenge
 
 ---
-
-**Version:** 1.0  
-**Last Updated:** May 2026  
-**Maintained by:** BlueScope Training Team
