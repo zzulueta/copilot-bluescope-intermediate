@@ -14,6 +14,7 @@
 
 ### 2. Clone and Env Setup
 - Clone this repository
+- Run in terminal:
 ```bash
 cd steel-inventory-api
 python -m venv venv
