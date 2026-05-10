@@ -52,7 +52,6 @@ You'll enhance a partially implemented Steel Inventory Management API using GitH
 - [ ] Create custom agents (.agent.md)
 - [ ] Create agent skills (SKILL.md)
 - [ ] Use Copilot Memory
-- [ ] Verify with Diagnostics view
 
 ---
 
@@ -522,7 +521,7 @@ lead time 7 days, daily usage 10 units, safety stock 50 units in December
 
 ---
 
-## Part 4: Copilot Memory and Diagnostics (20 minutes)
+## Part 4: Copilot Memory (10 minutes)
 
 ### Exercise 4.1: Use Copilot Memory (10 min)
 
@@ -580,39 +579,6 @@ Update the SteelProduct model to include quality_grade and set appropriate defau
 - Copilot recalls BlueScope-specific information
 - Suggestions align with stored preferences
 - Memory persists across chat sessions
-
----
-
-### Exercise 4.2: Verify with Diagnostics View (10 min)
-
-**Task:** Ensure all customizations are properly configured
-
-1. Open Command Palette (`Ctrl+Shift+P`)
-2. Search: "GitHub Copilot: Show Diagnostics"
-3. Review:
-   - Are all agents recognized?
-   - Are skills loading properly?
-   - Any configuration warnings?
-
-4. Open Chat Customizations Editor:
-   - Command Palette → "GitHub Copilot: Edit Chat Customizations"
-   - Review agent configurations
-   - Test agent invocation
-
-5. Check progressive loading:
-```
-@workspace Show me all available skills and their loading status
-```
-
-6. Debug any issues:
-   - Check YAML frontmatter syntax
-   - Verify file paths
-   - Ensure proper indentation
-
-**Expected Outcome:**
-- All agents showing as active
-- Skills properly loaded
-- No warnings or errors in diagnostics
 
 ---
 
