@@ -244,17 +244,72 @@ Add a low stock alert feature:
 ```
 Implement the feature with Copilot's help.
 
-**Commit:**
-Go to Source Control and use Copilot to generate a semantic commit message for your changes. Then Commit & Push your changes.
+---
+### Exercise 2.2: Generate Commit Message (10 min)
+
+1. Go to Settings and search for "Commit Message Instructions". 
+
+2. Select "Edit settings in json".
+
+3. In the settings file enter the following:
+```json
+"github.copilot.chat.commitMessageGeneration.instructions": [
+   {
+      "file": ".github/instructions/.copilot-commit-message-instructions.md"
+   }
+]
+```
+   Save the file.
+
+4. Create an instructions directory in the .github folder if it doesn't exist and add a file called `.copilot-commit-message-instructions.md` with the following content:
+
+```markdown
+# Commit Message Guidelines
+
+Write clear, concise commit messages using this format:
+
+## Format
+<type>: <short summary>
+
+**Limit to 50 characters** when possible. Use present tense ("Add feature" not "Added feature").
+
+## Common Types
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **refactor**: Code restructuring
+- **test**: Test additions or updates
+- **chore**: Maintenance tasks
+
+## Optional Details
+Add a blank line and longer description if needed:
+- Explain **why** the change was made
+- Reference issues: `Fixes #123` or `Closes #456`
+- Note breaking changes: `BREAKING CHANGE: description`
+
+## Examples
+feat: Add inventory search endpoint
+fix: Resolve null pointer in steel calculator
+docs: Update API usage examples
+
+```
+   Save the file.
+
+5. Go to Source Control and use Copilot to generate a semantic commit message for your changes. Verify that it uses the guidelines you just set and edit if necessary to ensure it accurately reflects your changes.
+
+6. Then Commit & Push your changes.
 
 ---
-
-### Exercise 2.2: Generate PR Summary (5 min)
+### Exercise 2.3: Generate PR Summary (5 min)
 
 1. Create a Pull Request for your feature branch against main. Go to your GitHub repository and you should see a Compare & Pull Request button. Click it.
+
 2. Go to the description box of the PR and remove any auto-generated text.
+
 3. Search for the Copilot Icon in the description box and click Generate -> Summary to generate a PR summary.
+
 4. Review the generated summary and make any necessary edits to ensure it accurately reflects the changes made in the PR.
+
 5. Click Create Pull Request to submit your PR with the generated summary.
 
 > Note: In the advanced course, we will use GitHub MCP Server to automate PR summary generation.
