@@ -252,37 +252,11 @@ Go to Source Control and use Copilot to generate a semantic commit message for y
 
 ### Exercise 2.2: Generate PR Summary (5 min)
 
-1. Go to GitHub and create a Pull Request for your feature branch against main. You should see a Compare & Pull Request button. Click it.
-2. Use Copilot to generate a comprehensive PR description:
-
-In Copilot Chat:
-```
-Generate a pull request description for the low-stock-alerts feature.
-Include:
-
-Summary of changes
-Technical details
-Testing done
-Breaking changes (if any)
-Use simple markdown formatting for readability. Do not provide links in the summary.
-```
-
-3. Copy the generated description to your PR
-
-**Expected Output:**
-```markdown
-## Summary
-Implements low stock alerting system for inventory management...
-
-## Changes
-- Added `min_stock_level` field to SteelProduct model
-- Created `/inventory/low-stock` endpoint
-...
-
-## Testing
-- Added unit tests for low stock detection
-...
-```
+1. Create a Pull Request for your feature branch against main. Go to your GitHub repository and you should see a Compare & Pull Request button. Click it.
+2. Go to the description box of the PR and remove any auto-generated text.
+3. Search for the Copilot Icon in the description box and click Generate -> Summary to generate a PR summary.
+4. Review the generated summary and make any necessary edits to ensure it accurately reflects the changes made in the PR.
+5. Click Create Pull Request to submit your PR with the generated summary.
 
 > Note: In the advanced course, we will use GitHub MCP Server to automate PR summary generation.
 ---
